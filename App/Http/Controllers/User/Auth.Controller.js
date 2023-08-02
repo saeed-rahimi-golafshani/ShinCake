@@ -5,6 +5,7 @@ const { UserModel } = require("../../../Models/User.Model");
 const { ROLES } = require("../../../Uttils/Constants");
 const createHttpError = require("http-errors");
 const { StatusCodes: httpStatus } = require("http-status-codes");
+const { smsClient } = require("../../../Uttils/Sms.Panel");
 
 class AuthenticationController extends Controller{
     async loginWithOtp(req, res, next){
@@ -12,8 +13,9 @@ class AuthenticationController extends Controller{
             const requestBody = await loginWithOtpSchema.validateAsync(req.body);
             const { mobile } = requestBody;
             const code = randomNumberFiveDigitsGenerator();
-            const resault = await saveUser(mobile, code);
+            const resault = await this.saveUser(mobile, code);
             if(!resault) throw new createHttpError.InternalServerError("خطای سروری");
+            await smsClient(mobile, code)
             return res.status(httpStatus.CREATED).json({
                 statusCode: httpStatus.CREATED,
                 data: {
