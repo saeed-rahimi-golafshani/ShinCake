@@ -15,6 +15,7 @@ module.exports = class Application{
         this.#PORT = Port;
         this.#DB_URL = Db_Url;
         this.ConfigApplication();
+        this.initConfigRedis();
         this.configDatavbaseToMongoDb();
         this.createServer();
         this.createRoutes();
@@ -53,6 +54,9 @@ module.exports = class Application{
             {explorer: true}
             )
         )
+    }
+    initConfigRedis(){
+        require("./Uttils/Init.Redis")
     }
     configDatavbaseToMongoDb(){
         mongoose.set('strictQuery', 'false')
