@@ -6,8 +6,12 @@ function nullish(){
     const nullishData = ["", " ", 0, NaN, null, undefined];
     return nullishData
 }
+function objectCopy(object){
+    return JSON.parse(JSON.stringify(object));
+}
 
 module.exports = {
     randomNumberFiveDigitsGenerator,
-    nullish
+    nullish,
+    objectCopy
 }

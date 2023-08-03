@@ -34,27 +34,13 @@
  *              properties: 
  *                  title: 
  *                      type: string
- *                      description: the headcategory title for Admin panel
- *          CheckLogin:
+ *                      description: the create headcategory title for Admin panel
+ *          Update_HeadCategory:
  *              type: object
- *              required: 
- *                  -   mobile
- *                  -   code
  *              properties: 
- *                  mobile: 
+ *                  title: 
  *                      type: string
- *                      description: the user mobile for Check Login
- *                  code: 
- *                      type: string
- *                      description: the Otp code
- *          refreshToken:
- *              type: object
- *              required: 
- *                  -   refreshToken
- *              properties: 
- *                  refreshToken:
- *                      type: string
- *                      description: the refreshToken
+ *                      description: the update headcategory title for Admin panel
  */
 
 /**
@@ -112,4 +98,50 @@
  *                          application/json:
  *                              schema:
  *                                  $ref: '#/definitions/ListOfHeadCategory'        
+ */
+/**
+ * @swagger 
+ *  /admin/headcategory/update/{id}: 
+ *      patch: 
+ *          tags: [Admin-HeadCategory]
+ *          summary: create headcategory In admin
+ *          description: create headcategory In admin
+ *          parameters:
+ *              -   in: path
+ *                  name: id
+ *                  type: string
+ *                  required: true
+ *          requestBody:
+ *              required: true
+ *              content: 
+ *                  application/x-www-form-urlencoded:
+ *                      schema: 
+ *                          $ref: '#/components/schemas/Update_HeadCategory' 
+ *          responses: 
+ *                  200:
+ *                      description: OK
+ *                      content:
+ *                          application/json:
+ *                              schema:
+ *                                  $ref: '#/definitions/PublicDefinition'        
+ */
+/**
+ * @swagger 
+ *  /admin/headcategory/remove/{id}: 
+ *      delete: 
+ *          tags: [Admin-HeadCategory]
+ *          summary: create headcategory In admin
+ *          description: create headcategory In admin
+ *          parameters:
+ *              -   in: path
+ *                  name: id
+ *                  type: string
+ *                  required: true
+ *          responses: 
+ *                  200:
+ *                      description: OK
+ *                      content:
+ *                          application/json:
+ *                              schema:
+ *                                  $ref: '#/definitions/PublicDefinition'        
  */
