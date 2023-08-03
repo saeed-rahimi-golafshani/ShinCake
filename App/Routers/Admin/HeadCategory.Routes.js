@@ -9,5 +9,5 @@ router.patch("/update/:id", HeadCategoryController.updateHeadCategoryById);
 router.delete("/remove/:id", HeadCategoryController.removeHeadCategory);
 
 module.exports = {
-    headCategoryApiRoutes: router
+    headCategoryAdminApiRoutes: router
 }
