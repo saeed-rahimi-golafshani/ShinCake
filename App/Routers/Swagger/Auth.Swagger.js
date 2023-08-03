@@ -81,3 +81,28 @@
  *                              $ref: '#/definitions/PublicDefinition'
  *              
  */
+/**
+ * @swagger
+ *  /user/refresh_token:
+ *      post:
+ *          tags: [User-Authentication]
+ *          summary: check Login User In Otp Code with Mobile
+ *          description: check Login  mobile and One Time Password (OTP)
+ *          requestBody: 
+ *              required: true
+ *              content: 
+ *                  application/x-www-form-urlencoded:
+ *                      schema: 
+ *                          $ref: '#/components/schemas/refreshToken'      
+ *                  multipart/form-data:
+ *                      schema:
+ *                          $ref: '#/components/schemas/refreshToken'
+ *          responses: 
+ *              200:
+ *                  description: OK
+ *                  content:
+ *                     application/json:
+ *                          schema:
+ *                              $ref: '#/definitions/PublicDefinition'
+ *              
+ */

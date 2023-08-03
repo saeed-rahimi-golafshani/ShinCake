@@ -6,7 +6,7 @@ const { ROLES } = require("../../../Uttils/Constants");
 const createHttpError = require("http-errors");
 const { StatusCodes: httpStatus } = require("http-status-codes");
 const { smsClient } = require("../../../Uttils/Sms.Panel");
-const { signAccessToken } = require("../../../Uttils/Token");
+const { signAccessToken, signRefreshToken, verifyRefreshToken } = require("../../../Uttils/Token");
 
 class AuthenticationController extends Controller{
     async loginWithOtp(req, res, next){
@@ -66,16 +66,37 @@ class AuthenticationController extends Controller{
             if(user.otp.code != code) throw new createHttpError.Unauthorized("کد تایید ارسال شده صحیح نمیباشد");
             if(+user.otp.expiresIn < now) throw new createHttpError.Unauthorized("کد تایید منقضی شده است");
             const accessToken = await signAccessToken(user._id);
+            const refreshToken = await signRefreshToken(user._id);
             return res.status(httpStatus.OK).json({
                 statusCode: httpStatus.OK,
                 data: {
-                    accessToken
+                    accessToken,
+                    refreshToken 
                 }
             });
         } catch (error) {
             next(error)
         }
     };
+    async getRefreshToken(req, res, next){
+        try {
+            const { refreshToken } = req.body;
+            console.log(refreshToken);
+            const mobile = verifyRefreshToken(refreshToken);
+            const user = await UserModel.findOne({mobile});
+            const accessToken = await signAccessToken(user._id);
+            const newRefreshToken = await signRefreshToken(user._id);
+            return res.status(httpStatus.OK).json({
+                statusCode: httpStatus.OK,
+                data: {
+                    accessToken,
+                    refreshToken: newRefreshToken
+                }
+            });
+        } catch (error) {
+            next(error)
+        }
+    }
 };
 
 module.exports = {

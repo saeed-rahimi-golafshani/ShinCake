@@ -16,7 +16,7 @@ module.exports = class Application{
         this.#DB_URL = Db_Url;
         this.ConfigApplication();
         this.initConfigRedis();
-        this.configDatavbaseToMongoDb();
+        this.configDatabaseToMongoDb();
         this.createServer();
         this.createRoutes();
         this.errorHandler();
@@ -58,16 +58,12 @@ module.exports = class Application{
     initConfigRedis(){
         require("./Uttils/Init.Redis")
     }
-    configDatavbaseToMongoDb(){
+    configDatabaseToMongoDb(){
         mongoose.set('strictQuery', 'false')
         mongoose.connect(this.#DB_URL, (error) => {
             if(!error) return console.log("Application is connected to mongoDb...");
             return console.log("Application is not connected to mongoDb...");
         })
-        // mongoose.connect(this.#DB_URL, (error) =>{
-        //     if(!error) return console.log("Application is connected to mongoDb...");
-        //     return console.log("Application is not connected to mongoDb..."); 
-        // });
         const db = mongoose.connection;
         db.on("connected", () => {
             console.log("Mongoose Connected to DB...");
