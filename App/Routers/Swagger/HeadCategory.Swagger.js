@@ -93,3 +93,23 @@
  *                              schema:
  *                                  $ref: '#/definitions/ListOfHeadCategory'        
  */
+/**
+ * @swagger 
+ *  /admin/headcategory/list/{id}: 
+ *      get: 
+ *          tags: [Admin-HeadCategory]
+ *          summary: list of headcategory In admin
+ *          description: create headcategory In admin
+ *          parameters:
+ *              -   in: path
+ *                  name: id
+ *                  type: string
+ *                  required: true
+ *          responses: 
+ *                  200:
+ *                      description: OK
+ *                      content:
+ *                          application/json:
+ *                              schema:
+ *                                  $ref: '#/definitions/ListOfHeadCategory'        
+ */
