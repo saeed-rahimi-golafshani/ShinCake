@@ -5,7 +5,7 @@ class HomeController extends Controller{
         return res.status(httpStatus.OK).json({
             statusCode: httpStatus.OK,
             data: {
-                message: " من صفحه اصلی وب سایت"
+                message: "صفحه اصلی وب سایت"
             }
         })
     }
