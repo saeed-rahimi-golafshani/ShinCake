@@ -22,6 +22,20 @@ class HeadCategoryController extends Controller{
             next(error)
         }
     };
+    async listOfHeadCategory(req, res, next){
+        try {
+            const headCategory = await HeadCategoryModel.find({});
+            if(!headCategory) throw new createHttpError.NotFound("سر دسته ای یافت نشد");
+            return res.status(httpStatus.OK).json({
+                statusCode: httpStatus.OK,
+                data: {
+                    headCategory
+                }
+            });
+        } catch (error) {
+            next(error)
+        }
+    }
     async checkExistHeadCatByTitle(title){
         const headcategory = await HeadCategoryModel.findOne({title});
         if(headcategory) throw new createHttpError.BadRequest("عنوان سر دسته تکراری است، لطفا عنوان دیگری را انتخاب نمایید");

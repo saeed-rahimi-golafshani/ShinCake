@@ -1,4 +1,29 @@
 /**
+ * @swagger
+ *  definitions:
+ *      ListOfHeadCategory:
+ *          type: object
+ *          properties:
+ *              statusCode:     
+ *                  type: integer
+ *                  example: 200
+ *              data: 
+ *                  type: object
+ *                  properties: 
+ *                      courses:
+ *                          type: array
+ *                          items: 
+ *                              type: object
+ *                              properties:
+ *                                  _id: 
+ *                                      type: string
+ *                                      example: "6403548e530901e984e7de91"
+ *                                  title:
+ *                                      type: string
+ *                                      example: "title of headcategory"             
+ */
+
+/**
  * @swagger 
  *  components:
  *      schemas:
@@ -38,7 +63,7 @@
  *      post: 
  *          tags: [Admin-HeadCategory]
  *          summary: create headcategory In admin
- *          description: One Time Password (OTP) login
+ *          description: create headcategory In admin
  *          requestBody:
  *              required: true
  *              content: 
@@ -52,4 +77,19 @@
  *                          application/json:
  *                              schema:
  *                                  $ref: '#/definitions/PublicDefinition'        
+ */
+/**
+ * @swagger 
+ *  /admin/headcategory/list: 
+ *      get: 
+ *          tags: [Admin-HeadCategory]
+ *          summary: list of headcategory In admin
+ *          description: create headcategory In admin
+ *          responses: 
+ *                  200:
+ *                      description: OK
+ *                      content:
+ *                          application/json:
+ *                              schema:
+ *                                  $ref: '#/definitions/ListOfHeadCategory'        
  */
