@@ -7,7 +7,7 @@ const BlogSchema = new mongoose.Schema({
     short_text: {type: String, required: true},
     text: {type: String, required: true},
     image_refrence: {type: String, required: true},
-    iamges: {type: [String], required: true, default: []},
+    images: {type: [String], required: true, default: []},
     tags: {type: [String], default: []},
     category: {type: [mongoose.Types.ObjectId], ref: "headcategory", required: true, default: []},
     source: {type: [String], default: []},

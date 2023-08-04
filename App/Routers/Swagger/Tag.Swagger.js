@@ -7,4 +7,6 @@
  *          description: HeadCategory section
  *      -   name: Admin-Category
  *          description: Category section
+ *      -   name: Admin-Blog
+ *          description: Blog section
  */
