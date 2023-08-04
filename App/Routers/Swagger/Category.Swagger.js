@@ -1,7 +1,7 @@
 /**
  * @swagger
  *  definitions:
- *      ListOfHeadCategory:
+ *      ListOfCategory:
  *          type: object
  *          properties:
  *              statusCode:     
@@ -20,7 +20,13 @@
  *                                      example: "6403548e530901e984e7de91"
  *                                  title:
  *                                      type: string
- *                                      example: "title of headcategory"             
+ *                                      example: "title of category"    
+ *                                  headCategory:
+ *                                      type: string
+ *                                      example: "title of category"             
+ *                                  parent:
+ *                                      type: string
+ *                                      example: "title of category"                      
  */
 
 /**
@@ -31,7 +37,6 @@
  *              type: object
  *              required: 
  *                  -   title
- *                  -   headCategory
  *              properties: 
  *                  title: 
  *                      type: string
@@ -73,24 +78,39 @@
  */
 /**
  * @swagger 
- *  /admin/headcategory/list: 
+ *  /admin/category/list: 
  *      get: 
- *          tags: [Admin-HeadCategory]
- *          summary: list of headcategory In admin
- *          description: create headcategory In admin
+ *          tags: [Admin-Category]
+ *          summary: list of category In admin
+ *          description: list category In admin
  *          responses: 
  *                  200:
  *                      description: OK
  *                      content:
  *                          application/json:
  *                              schema:
- *                                  $ref: '#/definitions/ListOfHeadCategory'        
+ *                                  $ref: '#/definitions/ListOfCategory'        
  */
 /**
  * @swagger 
- *  /admin/headcategory/list/{id}: 
+ *  /admin/category/list_with_children: 
  *      get: 
- *          tags: [Admin-HeadCategory]
+ *          tags: [Admin-Category]
+ *          summary: list of category In admin
+ *          description: list category In admin
+ *          responses: 
+ *                  200:
+ *                      description: OK
+ *                      content:
+ *                          application/json:
+ *                              schema:
+ *                                  $ref: '#/definitions/ListOfCategory'        
+ */
+/**
+ * @swagger 
+ *  /admin/category/list/{id}: 
+ *      get: 
+ *          tags: [Admin-Category]
  *          summary: list of headcategory In admin
  *          description: create headcategory In admin
  *          parameters:
