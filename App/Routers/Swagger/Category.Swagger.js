@@ -160,11 +160,11 @@
  */
 /**
  * @swagger 
- *  /admin/headcategory/remove/{id}: 
+ *  /admin/category/remove/{id}: 
  *      delete: 
- *          tags: [Admin-HeadCategory]
- *          summary: create headcategory In admin
- *          description: create headcategory In admin
+ *          tags: [Admin-Category]
+ *          summary: create category In admin
+ *          description: create category In admin
  *          parameters:
  *              -   in: path
  *                  name: id

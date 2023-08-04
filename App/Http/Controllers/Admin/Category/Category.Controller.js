@@ -114,6 +114,27 @@ class CategoryController extends Controller{
         } catch (error) {
             next(error)
         }
+    };
+    async removeCategory(req, res, next){
+        try {
+            const { id } = req.params;
+            const checkId = await this.checkExistCategoryById(id);
+            const deleteResault = await CategoryModel.deleteOne({
+                $or: [
+                    {_id: checkId._id},
+                    {parent: checkId._id}
+                ]
+            });
+            if(deleteResault.deletedCount == 0) throw new createHttpError.InternalServerError("خطای سروری");
+            return res.status(httpStatus.OK).json({
+                statusCode: httpStatus.OK,
+                data: {
+                    message: "دسته بندی با موفقیت حذف شد"
+                }
+            });
+        } catch (error) {
+            next(error)
+        }
     }
     async checkExistCategoryByTitle(title){
         const category = await CategoryModel.findOne({title});
