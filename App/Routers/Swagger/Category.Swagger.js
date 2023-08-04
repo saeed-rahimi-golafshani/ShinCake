@@ -47,12 +47,18 @@
  *                  parent: 
  *                      type: string
  *                      description: the create parent title for Admin panel
- *          Update_HeadCategory:
+ *          Update_Category:
  *              type: object
  *              properties: 
  *                  title: 
  *                      type: string
  *                      description: the update headcategory title for Admin panel
+ *                  headCategory: 
+ *                      type: string
+ *                      description: the create headCategory title for Admin panel
+ *                  parent: 
+ *                      type: string
+ *                      description: the create parent title for Admin panel
  */
 
 /**
@@ -128,11 +134,11 @@
  */
 /**
  * @swagger 
- *  /admin/headcategory/update/{id}: 
+ *  /admin/category/update/{id}: 
  *      patch: 
- *          tags: [Admin-HeadCategory]
- *          summary: create headcategory In admin
- *          description: create headcategory In admin
+ *          tags: [Admin-Category]
+ *          summary: create category In admin
+ *          description: create category In admin
  *          parameters:
  *              -   in: path
  *                  name: id
@@ -143,7 +149,7 @@
  *              content: 
  *                  application/x-www-form-urlencoded:
  *                      schema: 
- *                          $ref: '#/components/schemas/Update_HeadCategory' 
+ *                          $ref: '#/components/schemas/Update_Category' 
  *          responses: 
  *                  200:
  *                      description: OK

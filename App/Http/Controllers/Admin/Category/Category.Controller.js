@@ -4,6 +4,7 @@ const { createCategorySchema } = require("../../../Validations/Category.Schema")
 const Controller = require("../../Controller");
 const { StatusCodes: httpStatus } = require("http-status-codes");
 const { default: mongoose } = require("mongoose");
+const { objectCopy, nullish } = require("../../../../Uttils/Functions");
 
 class CategoryController extends Controller{
     async createController(req, res, next){
@@ -87,6 +88,27 @@ class CategoryController extends Controller{
                 statusCode: httpStatus.OK,
                 data: {
                     category
+                }
+            });
+        } catch (error) {
+            next(error)
+        }
+    };
+    async updateCategory(req, res, next){
+        try {
+            const { id } = req.params;
+            const checkId = await this.checkExistCategoryById(id);
+            const requestData = objectCopy(req.body);
+            const nullishData = nullish();
+            Object.keys(requestData).forEach(key => {
+                if(nullishData.includes(requestData[key])) delete requestData[key];
+            });
+            const updateResault = await CategoryModel.updateOne({_id: checkId._id}, {$set: requestData});
+            if(updateResault.modifiedCount == 0) throw new createHttpError.InternalServerError("خطای سروری");
+            return res.status(httpStatus.OK).json({
+                statusCode: httpStatus.OK,
+                data: {
+                    message: "به روز رسانی با موفقیت انجام شد"
                 }
             });
         } catch (error) {
