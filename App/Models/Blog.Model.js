@@ -20,6 +20,7 @@ const BlogSchema = new mongoose.Schema({
     timestamps: true,
     toJSON: { virtuals: true }
 });
+BlogSchema.index({title: "text"});
 
 module.exports = {
     BlogModel: mongoose.model("blog", BlogSchema)

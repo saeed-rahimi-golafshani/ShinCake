@@ -38,11 +38,36 @@ class BlogController extends Controller{
             next(error)
         }
     };
+    async listOfBlog(req, res, next){
+        try {
+            const { search } = req.query;
+            let blog;
+            if(search){
+                blog = await BlogModel.findOne({
+                    $text: {
+                        $search: new RegExp(search, "ig")
+                    }
+                })
+            } else {
+                blog = await BlogModel.find({});
+            }
+            if(!blog) throw new createHttpError.NotFound("مقاله ای یافت نشد")
+            return res.status(httpStatus.OK).json({
+                statusCode: httpStatus.OK,
+                data: {
+                    blog
+                }
+            });
+        } catch (error) {
+            next
+            (error)
+        }
+    }
     async checkExistBlogWithTitle(title){
         const blog = await BlogModel.findOne({title});
         if(blog) throw new createHttpError.BadRequest("عنوان مقاله تکراری است، لطفا عنوان دیگری را انتخاب نمایید");
         return blog
-    }
+    };
 };
 
 module.exports = {
