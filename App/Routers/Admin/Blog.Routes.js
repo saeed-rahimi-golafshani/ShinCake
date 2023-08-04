@@ -10,7 +10,7 @@ router.post("/create",
     stringToArray("source"),
     BlogController.createBlog);
 router.get("/list", BlogController.listOfBlog);
-
+router.get("/list/:id", BlogController.listOfBlogById)
 
 module.exports = {
     BlogAdminApiRoutes: router

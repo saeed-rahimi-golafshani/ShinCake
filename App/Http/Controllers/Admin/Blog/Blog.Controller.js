@@ -4,7 +4,8 @@ const { listOfImagesFromRequest } = require("../../../../Uttils/Functions");
 const { createBlogSchema } = require("../../../Validations/Blog.Schema");
 const Controller = require("../../Controller");
 const path = require("path");
-const { StatusCodes: httpStatus } = require("http-status-codes")
+const { StatusCodes: httpStatus } = require("http-status-codes");
+const { default: mongoose } = require("mongoose");
 
 class BlogController extends Controller{
     async createBlog(req, res, next){
@@ -47,9 +48,15 @@ class BlogController extends Controller{
                     $text: {
                         $search: new RegExp(search, "ig")
                     }
-                })
+                }).populate([
+                    {path: "category", select: {__v: 0}},
+                    {path: "author", select: {firstname: 1, lastname: 1}}
+                ]);
             } else {
-                blog = await BlogModel.find({});
+                blog = await BlogModel.find({}).populate([
+                    {path: "category", select: {__v: 0}},
+                    {path: "author", select: {firstname: 1, lastname: 1}}
+                ]);
             }
             if(!blog) throw new createHttpError.NotFound("مقاله ای یافت نشد")
             return res.status(httpStatus.OK).json({
@@ -62,12 +69,37 @@ class BlogController extends Controller{
             next
             (error)
         }
+    };
+    async listOfBlogById(req, res, next){
+        try {
+            const { id } = req.params;
+            const checkId = await this.checkExistBlogWithId(id);
+            const blog = await BlogModel.findOne({_id: checkId._id}).populate([
+                {path: "category", select: {__v: 0}},
+                {path: "author", select: {firstname: 1, lastname: 1}}
+            ]);
+            if(!blog) throw new createHttpError.NotFound("مقاله ای یافت نشد");
+            return res.status(httpStatus.OK).json({
+                statusCode: httpStatus.OK,
+                data: {
+                    blog
+                }
+            });
+        } catch (error) {
+            next(error)
+        }
     }
     async checkExistBlogWithTitle(title){
         const blog = await BlogModel.findOne({title});
         if(blog) throw new createHttpError.BadRequest("عنوان مقاله تکراری است، لطفا عنوان دیگری را انتخاب نمایید");
         return blog
     };
+    async checkExistBlogWithId(id){
+        if(!mongoose.isValidObjectId(id)) throw new createHttpError.BadRequest("ساختار شناسه مورد نظر اشتباه است");
+        const blog = await BlogModel.findById(id);
+        if(!blog) throw new createHttpError.NotFound("مقاله مورد نظر یافت نشد");
+        return blog
+    }
 };
 
 module.exports = {
